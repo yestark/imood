@@ -17,12 +17,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: _title,
+      // We start from the nevigation bar, which can lead us to different pages
       home: MoodNevigationBar(),
     );
   }
 }
 
-// reference: https://www.youtube.com/watch?v=18PVdmBOEQM&t=124s
+// Bottom nevigation bar reference: https://www.youtube.com/watch?v=18PVdmBOEQM&t=124s
+// The nevigation bar is a stateful widget
 class MoodNevigationBar extends StatefulWidget {
   const MoodNevigationBar({super.key});
   @override
@@ -31,6 +33,8 @@ class MoodNevigationBar extends StatefulWidget {
 
 class _MoodNevigationBarState extends State<MoodNevigationBar> {
   int _currentIndex = 2;
+  // There are five pages, which are game page, white noise page,
+  // home page (which plays the light music), meditation page, and HRV page (the page that users can check their status)
   final List<Widget> _children = [
     const GamePage(),
     const WhiteNoisePage(),
@@ -39,6 +43,8 @@ class _MoodNevigationBarState extends State<MoodNevigationBar> {
     const HRVPage(),
   ];
 
+  // Set the state.
+  // When we tap the bar on the scree, current idex will change to the index we want
   void onTappedBar(int index) {
     setState(() {
       _currentIndex = index;
@@ -48,6 +54,8 @@ class _MoodNevigationBarState extends State<MoodNevigationBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // In the body, the items are BottomNavigationBarItem
+      // In the BottomNavigationBarItem, we can set the icon, label name, and the background color.
       body: _children[_currentIndex],
       backgroundColor: Color(0x00ffffff),
       bottomNavigationBar: BottomNavigationBar(
@@ -66,7 +74,7 @@ class _MoodNevigationBarState extends State<MoodNevigationBar> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.music_note_rounded),
-            label: 'White Noise',
+            label: 'Light Music',
             backgroundColor: Colors.transparent,
           ),
           BottomNavigationBarItem(

@@ -6,7 +6,9 @@ import 'home_page.dart';
 import 'focus_meditation_page.dart';
 import 'progress_relax_page.dart';
 import 'vipassana_page.dart';
+import 'yoga_meditation_page.dart';
 
+// The meditation page is a stateful widget
 class MeditationPage extends StatefulWidget {
   const MeditationPage({super.key});
 
@@ -32,8 +34,10 @@ class _MeditationPageState extends State<MeditationPage> {
       ),
       body: Container(
         child: ListView(
+          // There are four videos
           children: [
             FocusMeditation(),
+            YogaMeditation(),
             ProgressRelax(),
             Vipassana(),
           ],
@@ -42,6 +46,10 @@ class _MeditationPageState extends State<MeditationPage> {
     );
   }
 }
+
+// For each video, we will set up a stateful widget represented as a card.
+// The card contains the picture and the title, which corresponding to each scenes.
+// When users click the card, the onTap and MaterialPageRoute will guid users to the corresponding pages.
 
 class FocusMeditation extends StatefulWidget {
   const FocusMeditation({super.key});
@@ -189,7 +197,62 @@ class _VipassanaState extends State<Vipassana> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const <Widget>[
                     Center(
-                      child: Text('Vapassana Meditation',
+                      child: Text('Vipassana Meditation',
+                          style: TextStyle(
+                            fontFamily: 'PTSans',
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                          )),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class YogaMeditation extends StatefulWidget {
+  const YogaMeditation({super.key});
+
+  @override
+  State<YogaMeditation> createState() => _YogaMeditationState();
+}
+
+class _YogaMeditationState extends State<YogaMeditation> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => YogaMeditationPage(),
+          ),
+        );
+      },
+      child: Center(
+        child: Container(
+          width: 350,
+          height: 200,
+          padding: EdgeInsets.all(10.0),
+          child: Card(
+            child: Stack(
+              children: [
+                Image.asset(
+                  'assets/images/yoga_wallpaper.jpg',
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    Center(
+                      child: Text('Yoga Meditation',
                           style: TextStyle(
                             fontFamily: 'PTSans',
                             fontSize: 30.0,

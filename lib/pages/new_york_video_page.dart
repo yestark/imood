@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+// In this page, users can play the video which is from the YouTube
+// We used youtube_player_flutter in pub.dev
+// Tutorial of add YouTube Video Player in Flutter: https://youtu.be/YMx8Bbev6T4
+// Full screen reference: https://stackoverflow.com/questions/62670138/flutter-youtube-player-flutter-7-0-06-full-screen
 class NewYorkVideoPage extends StatefulWidget {
   const NewYorkVideoPage({super.key});
 
@@ -8,27 +12,34 @@ class NewYorkVideoPage extends StatefulWidget {
   State<NewYorkVideoPage> createState() => _NewYorkVideoPageState();
 }
 
+// In this class, we can play a video from the YouTube
 class _NewYorkVideoPageState extends State<NewYorkVideoPage> {
   final videoURL = "https://youtu.be/YF3pj_3mdMc";
   late YoutubePlayerController _controller;
 
+  // Set the initial state
+  // We set autoPlay as true, so that when users click the card and get in the page
+  // the video will be played automatically
   @override
   void initState() {
     final videoID = YoutubePlayer.convertUrlToId(videoURL);
     _controller = YoutubePlayerController(
       initialVideoId: videoID!,
       flags: const YoutubePlayerFlags(
-        autoPlay: false,
+        autoPlay: true,
       ),
     );
     super.initState();
   }
 
+  // In the widget, we can build the layout of the page: video is in the middle
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
+        // OrientationBuilder can help us view the video in full screen
+        // Use the if else statement: whether the page is landscape or not
         child: OrientationBuilder(
             builder: (BuildContext context, Orientation orientation) {
           if (orientation != Orientation.landscape) {
@@ -46,11 +57,11 @@ class _NewYorkVideoPageState extends State<NewYorkVideoPage> {
                   ),
                 ),
               ),
-              body: Center(child: YoutubeForestPlayer()),
+              body: Center(child: YoutubeNewYorkPlayer()),
             );
           } else {
             return Scaffold(
-              body: YoutubeForestPlayer(),
+              body: YoutubeNewYorkPlayer(),
             );
           }
         }),
@@ -58,7 +69,8 @@ class _NewYorkVideoPageState extends State<NewYorkVideoPage> {
     );
   }
 
-  Widget YoutubeForestPlayer() {
+  // The YoutubeNewYorkPlayer build a player that plays the video
+  Widget YoutubeNewYorkPlayer() {
     return Container(
       child: YoutubePlayer(
         controller: _controller,

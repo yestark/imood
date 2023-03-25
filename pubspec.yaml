@@ -51,19 +51,29 @@ flutter:
      - assets/audio/forest.mp3
      - assets/audio/sea.mp3
      - assets/audio/beautiful.mp3
-     - assets/audio/light.mp3
-     - assets/images/music_background.png
+     - assets/audio/1.mp3
+     - assets/audio/2.mp3
+     - assets/audio/3.mp3
+     - assets/audio/4.mp3
+     - assets/audio/5.mp3
+     - assets/audio/6.mp3
+     - assets/audio/7.mp3
+     - assets/audio/8.mp3
+     - assets/audio/9.mp3
      - assets/images/forest_wallpaper.jpg
      - assets/images/vintage.jpg
      - assets/images/sea.jpg
      - assets/images/Bar.png
-     - assets/images/1.jpg
      - assets/images/new york.jpg
      - assets/images/Edinburgh.jpg
      - assets/images/focus.jpg
      - assets/images/relaxation.jpg
      - assets/images/vipassana.jpg
-
+     - assets/images/rain_wallpaper.jpg
+     - assets/images/paris_wallpaper.jpg
+     - assets/images/yoga_wallpaper.jpg
+     - assets/images/ikun.png
+     
   fonts:
     - family: Pacifico
       fonts:
@@ -80,3 +90,6 @@ flutter:
     - family: PTSans
       fonts:
         - asset: assets/fonts/PTSans-Bold.ttf
+    - family: IBMPlexSerif
+      fonts:
+        - asset: assets/fonts/IBMPlexSerif-Medium.ttf

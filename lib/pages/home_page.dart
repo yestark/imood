@@ -13,18 +13,34 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-// reference: https://youtu.be/Pk56OnEMIqU
+// In the home page, we build a audio player that users can play/pause the music and change the music
+// Audio player reference code: https://youtu.be/Pk56OnEMIqU
+// https://youtu.be/udtfgcF3Olc
 class _HomePageState extends State<HomePage> {
   final AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
 
+  // Set up the initial state
   @override
   void initState() {
     super.initState();
     setupPlaylist();
   }
 
+  // A audio playlist, the music are in the assets file
   void setupPlaylist() async {
-    await audioPlayer.open(Audio('assets/audio/light.mp3'), autoStart: false);
+    await audioPlayer.open(
+        Playlist(audios: [
+          Audio('assets/audio/1.mp3'),
+          Audio('assets/audio/3.mp3'),
+          Audio('assets/audio/2.mp3'),
+          Audio('assets/audio/4.mp3'),
+          Audio('assets/audio/5.mp3'),
+          Audio('assets/audio/6.mp3'),
+          Audio('assets/audio/7.mp3'),
+          Audio('assets/audio/8.mp3'),
+          Audio('assets/audio/9.mp3'),
+        ]),
+        autoStart: false);
   }
 
   @override
@@ -33,16 +49,28 @@ class _HomePageState extends State<HomePage> {
     audioPlayer.dispose();
   }
 
+  // The widget will return a audioplayer that the play/pause button is surrounded by a circle
   Widget circularAudioPlayer(
       RealtimePlayingInfos realtimePlayingInfos, double screenWidth) {
     Color primaryColor = Colors.white;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    // The body of a row is: Previous music, next music, and play/pause
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const SizedBox(height: 80),
+        // Previous music
+        IconButton(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          icon: Icon(Icons.skip_previous_rounded),
+          onPressed: () => audioPlayer.previous(),
+          iconSize: screenWidth / 6,
+          color: Colors.white,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        // Play/pause
         CircularPercentIndicator(
-          radius: screenWidth / 4,
-          arcType: ArcType.HALF,
+          radius: screenWidth / 5,
+          arcType: ArcType.FULL,
           backgroundColor: primaryColor,
           progressColor: Colors.white,
           percent: realtimePlayingInfos.currentPosition.inSeconds /
@@ -58,10 +86,22 @@ class _HomePageState extends State<HomePage> {
             onPressed: () => audioPlayer.playOrPause(),
           ),
         ),
+        // Next music
+        IconButton(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          icon: Icon(Icons.skip_next_rounded),
+          onPressed: () => audioPlayer.next(),
+          iconSize: screenWidth / 6,
+          color: Colors.white,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
       ],
     );
   }
 
+  // Set up the layout of the page, including:
+  // appbar, background wallpaper, and music player
   @override
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
@@ -91,8 +131,12 @@ class _HomePageState extends State<HomePage> {
           child: audioPlayer.builderRealtimePlayingInfos(
             builder: ((context, realtimePlayingInfos) {
               if (realtimePlayingInfos != null) {
-                return circularAudioPlayer(
-                    realtimePlayingInfos, MediaQuery.of(context).size.width);
+                return Container(
+                  alignment: Alignment.bottomCenter,
+                  padding: const EdgeInsets.symmetric(vertical: 25),
+                  child: circularAudioPlayer(
+                      realtimePlayingInfos, MediaQuery.of(context).size.width),
+                );
               } else {
                 return Container();
               }
