@@ -145,15 +145,12 @@ class _GamePageState extends State<GamePage> {
                               width: 80,
                               height: 80,
                               decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image: ExactAssetImage(
-                                        'assets/images/ikun.png'),
-                                    fit: BoxFit.fitHeight),
+                                color: Colors.orange,
                               ),
                             ),
                           ),
                           Positioned.fromRect(
-                            // size and set for the player
+                              // size and set for the player
                               rect: Rect.fromCenter(
                                   center: Offset(wallX - size / 2,
                                       stageSize - wallHeight / 2),
